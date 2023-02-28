@@ -1,0 +1,33 @@
+SELECT i.point, i.date, o.out, i.inc
+FROM (
+	SELECT point, date, sum(inc) AS inc
+	FROM Income
+	GROUP BY point, date
+) AS i
+LEFT JOIN (
+	SELECT point, date, sum(out) AS out
+	FROM Outcome
+	GROUP BY point, date
+) AS o
+ON i.point = o.point
+AND i.date = o.date
+
+UNION
+SELECT o.point, o.date, o.out, i.inc
+FROM (
+	SELECT point, date, sum(out) AS out
+	FROM Outcome
+	GROUP BY point, date
+) AS o
+LEFT JOIN (
+	SELECT point, date, sum(inc) AS inc
+	FROM Income
+	GROUP BY point, date
+) AS i
+ON o.point = i.point
+AND o.date = i.date
+
+-- 31. For ship classes WITH a gun caliber of 16 IN. OR more, display the class AND the country.
+SELECT class, country
+FROM Classes
+WHERE bore >= 16.0

@@ -1,0 +1,9 @@
+SELECT pr.maker, AVG(pc.hd)
+FROM Product AS pr JOIN PC AS pc 
+ON pr.model = pc.model
+WHERE maker IN (
+	SELECT DISTINCT maker
+	FROM Product
+	WHERE TYPE='Printer'
+)
+GROUP BY maker

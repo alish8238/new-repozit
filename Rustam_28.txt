@@ -1,0 +1,3 @@
+SELECT COUNT(model) AS Qty_model FROM PC
+GROUP BY model
+HAVING COUNT(model) = 1

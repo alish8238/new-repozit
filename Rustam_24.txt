@@ -1,0 +1,8 @@
+with smth as 
+(
+select distinct model, price from pc union all
+select distinct model, price from laptop union all
+select distinct model, price from printer
+)
+select distinct model from smth where price >= all (select max(price) from smth)
+--select * from smth
